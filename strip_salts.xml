@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<StandardizerConfiguration Version="0.1">
+  <Actions>
+    <StripSalts ID="Strip Salts" dontremovelastcomponent="false" usedefaultsalts="false">
+      <SaltDefinition ID="(2E)-but-2-enedioic acid" format="cxsmarts"><![CDATA[[#8]-[#6](=O)\[#6]=[#6]\[#6](-[#8])=O]]></SaltDefinition>
+      <SaltDefinition ID="(2Z)-but-2-enedioic acid" format="cxsmarts"><![CDATA[[#8]-[#6](=O)\[#6]=[#6]/[#6](-[#8])=O]]></SaltDefinition>
+      <SaltDefinition ID="2,3-dihydroxy-2,3-bis(4-methylbenzoyl)butanedioic acid" format="cxsmarts"><![CDATA[[#6]-[#6]-1=[#6]-[#6]=[#6](-[#6]=[#6]-1)-[#6](=O)C([#8])([#6](-[#8])=O)C([#8])([#6](-[#8])=O)[#6](=O)-[#6]-1=[#6]-[#6]=[#6](-[#6])-[#6]=[#6]-1 |c:3,5,27,t:1,22,24|]]></SaltDefinition>
+      <SaltDefinition ID="2,3-dihydroxybutanedioic acid" format="cxsmarts"><![CDATA[[#8]-[#6](-[#6](-[#8])-[#6](-[#8])=O)-[#6](-[#8])=O]]></SaltDefinition>
+      <SaltDefinition ID="2-(dimethylamino)ethan-1-ol" format="cxsmarts"><![CDATA[[#6]-[#7](-[#6])-[#6]-[#6]-[#8]]]></SaltDefinition>
+      <SaltDefinition ID="2-hydroxypropane-1,2,3-tricarboxylic acid" format="cxsmarts"><![CDATA[[#8]-[#6](=O)-[#6]C([#8])([#6]-[#6](-[#8])=O)[#6](-[#8])=O]]></SaltDefinition>
+      <SaltDefinition ID="4-methylbenzene-1-sulfonic acid" format="cxsmarts"><![CDATA[[#6]-[#6]-1=[#6]-[#6]=[#6](-[#6]=[#6]-1)S([#8])(=O)=O |c:3,5,t:1|]]></SaltDefinition>
+      <SaltDefinition ID="acetic acid" format="cxsmarts"><![CDATA[[#6]-[#6](-[#8])=O]]></SaltDefinition>
+      <SaltDefinition ID="ammonia" format="cxsmarts"><![CDATA[[#7]]]></SaltDefinition>
+      <SaltDefinition ID="alminium(1+) ion" format="cxsmarts"><![CDATA[[Al+]]]></SaltDefinition>
+      <SaltDefinition ID="alminium(3+) ion" format="cxsmarts"><![CDATA[[Al+++]]]></SaltDefinition>
+      <SaltDefinition ID="barium(2+) ion" format="cxsmarts"><![CDATA[[Ba++]]]></SaltDefinition>
+      <SaltDefinition ID="bromide" format="cxsmarts"><![CDATA[[Br-]]]></SaltDefinition>
+      <SaltDefinition ID="butanedioic acid" format="cxsmarts"><![CDATA[[#8]-[#6](=O)-[#6]-[#6]-[#6](-[#8])=O]]></SaltDefinition>
+      <SaltDefinition ID="calcium(2+) ion" format="cxsmarts"><![CDATA[[Ca++]]]></SaltDefinition>
+      <SaltDefinition ID="caesium(1+) ion" format="cxsmarts"><![CDATA[[Cs+]]]></SaltDefinition>
+      <SaltDefinition ID="chloride" format="cxsmarts"><![CDATA[[Cl-]]]></SaltDefinition>
+      <SaltDefinition ID="cyclohexanamine" format="cxsmarts"><![CDATA[[#7]-[#6]-1-[#6]-[#6]-[#6]-[#6]-[#6]-1]]></SaltDefinition>
+      <SaltDefinition ID="fluoride" format="cxsmarts"><![CDATA[[F-]]]></SaltDefinition>
+      <SaltDefinition ID="formic acid" format="cxsmarts"><![CDATA[[#8]-[#6]=O]]></SaltDefinition>
+      <SaltDefinition ID="hydrogen bromide" format="cxsmarts"><![CDATA[Br]]></SaltDefinition>
+      <SaltDefinition ID="hydrogen chloride" format="cxsmarts"><![CDATA[Cl]]></SaltDefinition>
+      <SaltDefinition ID="hydrogen fluoride" format="cxsmarts"><![CDATA[F]]></SaltDefinition>
+      <SaltDefinition ID="hydrogen iodide" format="cxsmarts"><![CDATA[I]]></SaltDefinition>
+      <SaltDefinition ID="iodide" format="cxsmarts"><![CDATA[[I-]]]></SaltDefinition>
+      <SaltDefinition ID="lithium(1+) ion" format="cxsmarts"><![CDATA[[Li+]]]></SaltDefinition>
+      <SaltDefinition ID="magnesium(1+) ion" format="cxsmarts"><![CDATA[[Mg+]]]></SaltDefinition>
+      <SaltDefinition ID="magnesium(2+) ion" format="cxsmarts"><![CDATA[[Mg++]]]></SaltDefinition>
+      <SaltDefinition ID="methanesulfonic acid" format="cxsmarts"><![CDATA[[#6]S([#8])(=O)=O]]></SaltDefinition>
+      <SaltDefinition ID="nitric acid" format="cxsmarts"><![CDATA[[#8]-[#7+](-[#8-])=O]]></SaltDefinition>
+      <SaltDefinition ID="oxalate" format="cxsmarts"><![CDATA[[#8-]-[#6](=O)-[#6](-[#8-])=O]]></SaltDefinition>
+      <SaltDefinition ID="oxalic acid" format="cxsmarts"><![CDATA[[#8]-[#6](=O)-[#6](-[#8])=O]]></SaltDefinition>
+      <SaltDefinition ID="oxalic acid" format="cxsmarts"><![CDATA[[#8]-[#6](=O)-[#6](-[#8])=O]]></SaltDefinition>
+      <SaltDefinition ID="perchlorate" format="cxsmarts"><![CDATA[[#8-]Cl(=O)(=O)=O]]></SaltDefinition>
+      <SaltDefinition ID="phosphoric acid" format="cxsmarts"><![CDATA[[#8]P([#8])([#8])=O]]></SaltDefinition>
+      <SaltDefinition ID="potassium(1+) ion" format="cxsmarts"><![CDATA[[K+]]]></SaltDefinition>
+      <SaltDefinition ID="sodium(1+) ion" format="cxsmarts"><![CDATA[[Na+]]]></SaltDefinition>
+      <SaltDefinition ID="sulfuric acid" format="cxsmarts"><![CDATA[[#8]S([#8])(=O)=O]]></SaltDefinition>
+      <SaltDefinition ID="triethylamine" format="cxsmarts"><![CDATA[[#6]-[#6]-[#7](-[#6]-[#6])-[#6]-[#6]]]></SaltDefinition>
+      <SaltDefinition ID="trifluoroacetate" format="cxsmarts"><![CDATA[[#8-]-[#6](=O)C(F)(F)F]]></SaltDefinition>
+      <SaltDefinition ID="trifluoroacetic acid" format="cxsmarts"><![CDATA[[#8]-[#6](=O)C(F)(F)F]]></SaltDefinition>
+      <SaltDefinition ID="zinc(1+) ion" format="cxsmarts"><![CDATA[[Zn+]]]></SaltDefinition>
+    </StripSalts>
+  </Actions>
+</StandardizerConfiguration>
