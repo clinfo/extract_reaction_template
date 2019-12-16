@@ -1,3 +1,5 @@
+package src.main;
+
 import chemaxon.formats.MolExporter;
 import chemaxon.formats.MolFormatException;
 import chemaxon.formats.MolImporter;
@@ -109,8 +111,8 @@ public class extractReactionTemplate {
                     mapper.map(reaction);
                     RxnMolecule reactionCloneForCore = reaction.clone();
                     RxnMolecule reactionCloneFor1Neighbor = reaction.clone();
-                    extractReactionTemplate(reactionCloneForCore, "0");
-                    extractReactionTemplate(reactionCloneFor1Neighbor, "1");
+                    getReactionTemplate(reactionCloneForCore, "0");
+                    getReactionTemplate(reactionCloneFor1Neighbor, "1");
                     if (reactionCloneForCore.getProduct(0).isEmpty() | reactionCloneFor1Neighbor.getProduct(0).isEmpty()) {
                         continue;
                     }
@@ -134,7 +136,7 @@ public class extractReactionTemplate {
         }
     }
 
-    private static void extractReactionTemplate(RxnMolecule reaction, String neighborNum) throws IllegalArgumentException {
+    private static void getReactionTemplate(RxnMolecule reaction, String neighborNum) throws IllegalArgumentException {
         // Process reactant(s) included in a reaction
         for (int i = 0; i < reaction.getReactantCount(); i++) {
             Molecule reactant = reaction.getReactant(i);
