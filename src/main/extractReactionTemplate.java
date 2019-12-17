@@ -66,22 +66,6 @@ public class extractReactionTemplate {
         }
     }
 
-    private static void stripSalts(RxnMolecule reaction, Standardizer std) {
-        int j = reaction.getComponentCount(RxnMolecule.AGENTS);
-        for (int i = 0; i < j; i++) {
-            reaction.removeComponent(RxnMolecule.AGENTS, 0);
-        }
-        for (int i = 0; i < reaction.getReactantCount(); i++) {
-            Molecule reactant = reaction.getReactant(i);
-            std.standardize(reactant);
-        }
-        for (int i = 0; i < reaction.getProductCount(); i++) {
-            Molecule product = reaction.getProduct(i);
-            std.standardize(product);
-        }
-        reaction.removeEmptyComponents();
-    }
-
     private static void writeListToOutput(List<InputStream> molStreams, List<Integer> idList, String save_path) throws IOException{
         try(BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(save_path), StandardCharsets.UTF_8))) {
             Standardizer std = new Standardizer(new File("./strip_salts.xml"));
@@ -95,7 +79,7 @@ public class extractReactionTemplate {
                     mol = mi.read();
                     mi.close();
                     RxnMolecule reaction = RxnMolecule.getReaction(mol);
-                    stripSalts(reaction, std);
+                    Utils.stripSalts(reaction, std);
                     if (reaction.getProductCount() != 1) {
                         continue;
                     }
