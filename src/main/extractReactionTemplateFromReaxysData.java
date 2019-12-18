@@ -170,18 +170,12 @@ public class extractReactionTemplateFromReaxysData {
                 if (reaction.getProductCount() != 1 | reaction.getReactantCount() > 3) {
                     continue;
                 }
-                if (reaction.getProductCount() != 1) {
-                    continue;
-                }
                 Molecule product = reaction.getProduct(0);
                 mapReaction(reaction, MappingStyle.CHANGING);
                 RxnMolecule reactionCloneForCore = reaction.clone();
                 RxnMolecule reactionCloneFor1Neighbor = reaction.clone();
                 getReactionTemplate(reactionCloneForCore, "0");
                 getReactionTemplate(reactionCloneFor1Neighbor, "1");
-                if (reactionCloneForCore.getProductCount() != 1 | reactionCloneFor1Neighbor.getProductCount() != 1) {
-                    continue;
-                }
                 if (reactionCloneForCore.getProduct(0).isEmpty() | reactionCloneFor1Neighbor.getProduct(0).isEmpty()) {
                     continue;
                 }
@@ -201,9 +195,9 @@ public class extractReactionTemplateFromReaxysData {
                 }
                 writer.write(idList.get(i) + "," +
                         MolExporter.exportToFormat(product, FORMAT) + "," +
-                        MolExporter.exportToFormat(reaction, FORMAT) + "," +
-                        rCore + "," +
-                        r1Neighbor + "," +
+                        MolExporter.exportToFormat(sortReactantsInReaction(reaction), FORMAT) + "," +
+                        MolExporter.exportToFormat(sortReactantsInReaction(reactionCore), FORMAT) + "," +
+                        MolExporter.exportToFormat(sortReactantsInReaction(reaction1Neighbor), FORMAT) + "," +
                         max_pub_year);
                 writer.newLine();
             }

@@ -2,6 +2,7 @@ package src.main;
 
 import chemaxon.formats.MolImporter;
 import chemaxon.standardizer.Standardizer;
+import chemaxon.struc.DPoint3;
 import chemaxon.struc.Molecule;
 import chemaxon.struc.RxnMolecule;
 import com.chemaxon.mapper.AutoMapper;
@@ -13,6 +14,8 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
+import java.util.TreeMap;
 
 
 class Utils {
@@ -68,5 +71,19 @@ class Utils {
             std.standardize(product);
         }
         reaction.removeEmptyComponents();
+    }
+    static RxnMolecule sortReactantsInReaction(RxnMolecule reaction){
+        RxnMolecule sortedReaction = new RxnMolecule();
+        DPoint3[] reactionArrow = reaction.getReactionArrow();
+        sortedReaction.setReactionArrow(reactionArrow);
+        sortedReaction.addComponent(reaction.getProduct(0), RxnMolecule.PRODUCTS);
+        Map<Integer, Molecule> tMap = new TreeMap<>();
+        for (Molecule m : reaction.getReactants()) {
+            tMap.put(m.getAtomCount(), m);
+        }
+        for (Integer nKey : tMap.keySet()) {
+            sortedReaction.addComponent(tMap.get(nKey), RxnMolecule.REACTANTS);
+        }
+        return sortedReaction;
     }
 }
