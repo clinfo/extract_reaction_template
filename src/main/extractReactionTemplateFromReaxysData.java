@@ -160,14 +160,17 @@ public class extractReactionTemplateFromReaxysData {
             Standardizer std = new Standardizer(new File("./strip_salts.xml"));
             for (int i = 0; i < molStreams.size(); i++) {
                 mol = getMolFromInputStream(molStreams.get(i));
+                if (mol == null) {
+                    continue;
+                }
                 reaction = RxnMolecule.getReaction(mol);
                 String sMol = MolExporter.exportToFormat(reaction, FORMAT);
                 reaction = RxnMolecule.getReaction(MolImporter.importMol(sMol));
                 stripSalts(reaction, std);
-                if (checkMwOfProductsInReaction(reaction)) {
+                if (reaction.getProductCount() != 1 | reaction.getReactantCount() > 3) {
                     continue;
                 }
-                if (reaction.getProductCount() != 1 | reaction.getReactantCount() > 3) {
+                if (checkMwOfProductsInReaction(reaction)) {
                     continue;
                 }
                 Molecule product = reaction.getProduct(0);
@@ -202,7 +205,7 @@ public class extractReactionTemplateFromReaxysData {
                 writer.newLine();
             }
             System.out.println("[SAVE] " + save_path);
-        } catch (IOException e) {
+        } catch (IOException | IllegalArgumentException | ArrayIndexOutOfBoundsException e) {
             e.printStackTrace();
         }
     }

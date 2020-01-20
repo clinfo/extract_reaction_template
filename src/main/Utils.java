@@ -25,7 +25,7 @@ class Utils {
             mol = mi.read();
         } catch (IOException e) {
             e.printStackTrace();
-            System.exit(1);
+            return mol;
         }
         return mol;
     }
