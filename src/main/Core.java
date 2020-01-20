@@ -81,7 +81,7 @@ public class Core {
                     reserveAtom = (Boolean) nAtom.getProperty("reserve");
                     reserveNAtom = (Boolean) nAtom.getProperty("nReserve");
                     // for preventing overwrite on reaction center atoms / first neighbor atoms
-                    if (BooleanUtils.isTrue(reserveAtom) & BooleanUtils.isTrue(reserveNAtom)) {
+                    if (BooleanUtils.isTrue(reserveAtom) | BooleanUtils.isTrue(reserveNAtom)) {
                         continue;
                     }
                     nAtom.putProperty("nReserve", true);
