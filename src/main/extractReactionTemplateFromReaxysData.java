@@ -170,7 +170,7 @@ public class extractReactionTemplateFromReaxysData {
                 if (reaction.getProductCount() != 1 | reaction.getReactantCount() > 3) {
                     continue;
                 }
-                if (checkMwOfProductsInReaction(reaction)) {
+                if (checkAtomCountOfProductsInReaction(reaction, 40)) {
                     continue;
                 }
                 Molecule product = reaction.getProduct(0);
