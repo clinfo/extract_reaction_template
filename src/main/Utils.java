@@ -57,6 +57,15 @@ class Utils {
         return booleanList.contains(true);
     }
 
+    static Boolean checkAtomCountOfProductsInReaction(RxnMolecule reaction, int threshold) throws IOException {
+        List<Boolean> boolList = new ArrayList<>();
+        for (int i = 0; i < reaction.getProductCount(); i++) {
+            System.out.println(reaction.getProduct(i).getAtomCount());
+            boolList.add(reaction.getProduct(i).getAtomCount() > threshold);
+        }
+        return boolList.contains(true);
+    }
+
     static void stripSalts(RxnMolecule reaction, Standardizer std) {
         int j = reaction.getComponentCount(RxnMolecule.AGENTS);
         for (int i = 0; i < j; i++) {
