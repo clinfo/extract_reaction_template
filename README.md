@@ -17,8 +17,8 @@ tail -n +2 1976_Sep2016_USPTOgrants_smiles.rsmi | awk -F '\t' '{print $1}' | sor
 ```
 3. Extract reaction templates.
 ```bash
-javac extractReactionTemplate.java
-java extractReactionTemplate -f smarts -i 1976_Sep2016_USPTOgrants_smiles_uniq.smi -o PATH_TO_DIRECTORY
+javac ExtractReactionTemplate.java
+java ExtractReactionTemplate -f smarts -i 1976_Sep2016_USPTOgrants_smiles_uniq.smi -o PATH_TO_OUTPUT
 ```
 The output file contains; 
 - product
@@ -28,8 +28,8 @@ The output file contains;
 
 ### Example
 ```bash
-javac extractReactionTemplate.java
-java extractReactionTemplate -f smarts -i sample.smi -o sample.txt
+javac ExtractReactionTemplate.java
+java ExtractReactionTemplate -f smarts -i sample.smi -o sample.txt
 ```
 
 
