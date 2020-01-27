@@ -17,8 +17,8 @@ tail -n +2 1976_Sep2016_USPTOgrants_smiles.rsmi | awk -F '\t' '{print $1}' | sor
 ```
 3. Extract reaction templates.
 ```bash
-javac extractReactionTemplate.java
-java extractReactionTemplate -f smarts -i 1976_Sep2016_USPTOgrants_smiles_uniq.smi -o PATH_TO_DIRECTORY
+javac ExtractReactionTemplate.java
+java ExtractReactionTemplate -f smarts -i 1976_Sep2016_USPTOgrants_smiles_uniq.smi -o PATH_TO_OUTPUT
 ```
 The output file contains; 
 - product
@@ -28,8 +28,8 @@ The output file contains;
 
 ### Example
 ```bash
-javac extractReactionTemplate.java
-java extractReactionTemplate -f smarts -i sample.smi -o sample.txt
+javac ExtractReactionTemplate.java
+java ExtractReactionTemplate -f smarts -i sample.smi -o sample.txt
 ```
 
 
@@ -38,6 +38,6 @@ java extractReactionTemplate -f smarts -i sample.smi -o sample.txt
 - [SMILES](https://docs.chemaxon.com/display/docs/SMILES)
 
 ## Reference
-Shoichi Ishida , Kei Terayama,  Ryosuke Kojima, Kiyosei Takasu, Yasushi Okuno,
-[Prediction and Interpretable Visualization of Synthetic Reactions Using Graph Convolutional Networks](http://dx.doi.org/10.26434/chemrxiv.8343995),
-ChemRxiv. [DOI: 10.26434/chemrxiv.8343995]
+Shoichi Ishida , Kei Terayama,  Ryosuke Kojima, Kiyosei Takasu, Yasushi Okuno  
+[Prediction and Interpretable Visualization of Retrosynthetic Reactions Using Graph Convolutional Networks](https://pubs.acs.org/doi/10.1021/acs.jcim.9b00538)  
+Journal of Chemical Information and Modeling. [DOI: 10.1021/acs.jcim.9b00538]

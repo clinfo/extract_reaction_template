@@ -22,7 +22,7 @@ import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 
-public class extractReactionTemplate {
+public class ExtractReactionTemplate {
     @Option(name = "-i", aliases = {"--input"}, metaVar = "input", required = true, usage = "Path to input reaction file.")
     private static String INPUT_FILE;
 
@@ -34,7 +34,7 @@ public class extractReactionTemplate {
     private static String FILE_FORMAT;
 
     public static void main(String[] args) {
-        extractReactionTemplate ert = new extractReactionTemplate();
+        ExtractReactionTemplate ert = new ExtractReactionTemplate();
         CmdLineParser parser = new CmdLineParser(ert);
         try {
             parser.parseArgument(args);
