@@ -19,6 +19,11 @@ import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 
+import static src.main.Core.getReactionTemplate;
+import static src.main.Utils.checkAtomCountOfProductsInReaction;
+import static src.main.Utils.mapReaction;
+import static src.main.Utils.stripSalts;
+
 public class extractReactionTemplate {
     @Option(name = "-i", aliases = {"--input"}, metaVar = "input", required = true, usage = "Path to input reaction file.")
     private static String INPUT_FILE;
@@ -71,6 +76,8 @@ public class extractReactionTemplate {
             Standardizer std = new Standardizer(new File("./strip_salts.xml"));
             MolImporter mi;
             Molecule mol;
+            RxnMolecule reactionCore;
+            RxnMolecule reaction1Neighbor;
             writer.write("id,product,reaction,reaction_center,reaction_1neighbor");
             writer.newLine();
             for (int i = 0; i < molStreams.size(); i++) {
@@ -79,19 +86,20 @@ public class extractReactionTemplate {
                     mol = mi.read();
                     mi.close();
                     RxnMolecule reaction = RxnMolecule.getReaction(mol);
-                    Utils.stripSalts(reaction, std);
-                    if (reaction.getProductCount() != 1) {
+                    stripSalts(reaction, std);
+                    if (reaction.getProductCount() != 1 | reaction.getReactantCount() > 3) {
+                        continue;
+                    }
+                    if (checkAtomCountOfProductsInReaction(reaction, 40)) {
                         continue;
                     }
                     AutoMapper.unmap(reaction);
                     Molecule product = reaction.getProduct(0);
-                    AutoMapper mapper = new AutoMapper();
-                    mapper.setMappingStyle(Mapper.MappingStyle.CHANGING);
-                    mapper.map(reaction);
+                    mapReaction(reaction, Mapper.MappingStyle.CHANGING);
                     RxnMolecule reactionCloneForCore = reaction.clone();
                     RxnMolecule reactionCloneFor1Neighbor = reaction.clone();
-                    Core.getReactionTemplate(reactionCloneForCore, "0");
-                    Core.getReactionTemplate(reactionCloneFor1Neighbor, "1");
+                    getReactionTemplate(reactionCloneForCore, "0");
+                    getReactionTemplate(reactionCloneFor1Neighbor, "1");
                     if (reactionCloneForCore.getProduct(0).isEmpty() | reactionCloneFor1Neighbor.getProduct(0).isEmpty()) {
                         continue;
                     }
@@ -101,11 +109,19 @@ public class extractReactionTemplate {
                     AutoMapper.unmap(reactionCloneFor1Neighbor);
                     reactionCloneForCore.removeEmptyComponents();
                     reactionCloneFor1Neighbor.removeEmptyComponents();
+
+                    String rCore = MolExporter.exportToFormat(reactionCloneForCore, FILE_FORMAT);
+                    reactionCore = RxnMolecule.getReaction(MolImporter.importMol(rCore));
+                    String r1Neighbor = MolExporter.exportToFormat(reactionCloneFor1Neighbor, FILE_FORMAT);
+                    reaction1Neighbor = RxnMolecule.getReaction(MolImporter.importMol(r1Neighbor));
+                    if (reactionCore.getProductCount() != 1 | reaction1Neighbor.getProductCount() != 1) {
+                        continue;
+                    }
                     writer.write(idList.get(i) + "," +
                             MolExporter.exportToFormat(product, FILE_FORMAT) + "," +
                             MolExporter.exportToFormat(reaction, FILE_FORMAT) + "," +
-                            MolExporter.exportToFormat(reactionCloneForCore, FILE_FORMAT) + "," +
-                            MolExporter.exportToFormat(reactionCloneFor1Neighbor, FILE_FORMAT));
+                            MolExporter.exportToFormat(reactionCore, FILE_FORMAT) + "," +
+                            MolExporter.exportToFormat(reaction1Neighbor, FILE_FORMAT));
                     writer.newLine();
                 } catch (ArrayIndexOutOfBoundsException | IllegalArgumentException | MolFormatException e) {
                     e.printStackTrace();
