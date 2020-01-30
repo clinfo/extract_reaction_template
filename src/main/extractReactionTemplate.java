@@ -23,6 +23,7 @@ import static src.main.Core.getReactionTemplate;
 import static src.main.Utils.checkAtomCountOfProductsInReaction;
 import static src.main.Utils.mapReaction;
 import static src.main.Utils.stripSalts;
+import static src.main.Utils.sortReactantsInReaction;
 
 public class extractReactionTemplate {
     @Option(name = "-i", aliases = {"--input"}, metaVar = "input", required = true, usage = "Path to input reaction file.")
@@ -119,9 +120,9 @@ public class extractReactionTemplate {
                     }
                     writer.write(idList.get(i) + "," +
                             MolExporter.exportToFormat(product, FILE_FORMAT) + "," +
-                            MolExporter.exportToFormat(reaction, FILE_FORMAT) + "," +
-                            MolExporter.exportToFormat(reactionCore, FILE_FORMAT) + "," +
-                            MolExporter.exportToFormat(reaction1Neighbor, FILE_FORMAT));
+                            MolExporter.exportToFormat(sortReactantsInReaction(reaction), FILE_FORMAT) + "," +
+                            MolExporter.exportToFormat(sortReactantsInReaction(reactionCore), FILE_FORMAT) + "," +
+                            MolExporter.exportToFormat(sortReactantsInReaction(reaction1Neighbor), FILE_FORMAT));
                     writer.newLine();
                 } catch (ArrayIndexOutOfBoundsException | IllegalArgumentException | MolFormatException e) {
                     e.printStackTrace();
