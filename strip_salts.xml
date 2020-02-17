@@ -45,5 +45,42 @@
       <SaltDefinition ID="trifluoroacetic acid" format="cxsmarts"><![CDATA[[#8]-[#6](=O)C(F)(F)F]]></SaltDefinition>
       <SaltDefinition ID="zinc(1+) ion" format="cxsmarts"><![CDATA[[Zn+]]]></SaltDefinition>
     </StripSalts>
+    <RemoveSolvents ID="Remove Solvents" usedefaultsolvents="false">
+      <SolventDefinition ID="1,2-dimethoxyethane" format="cxsmarts"><![CDATA[[#6]-[#8]-[#6]-[#6]-[#8]-[#6]]]></SolventDefinition>
+      <SolventDefinition ID="2-methyl-2-propanol" format="cxsmarts"><![CDATA[[#6]C([#6])([#6])[#8]]]></SolventDefinition>
+      <SolventDefinition ID="acetic acid" format="cxsmarts"><![CDATA[[#6]-[#6](-[#8])=O]]></SolventDefinition>
+      <SolventDefinition ID="acetone" format="cxsmarts"><![CDATA[[#6]-[#6](-[#6])=O]]></SolventDefinition>
+      <SolventDefinition ID="acetonitrile" format="cxsmarts"><![CDATA[[#6]C#N]]></SolventDefinition>
+      <SolventDefinition ID="benzene" format="cxsmarts"><![CDATA[c1ccccc1]]></SolventDefinition>
+      <SolventDefinition ID="butanol" format="cxsmarts"><![CDATA[[#6]-[#6]-[#6]-[#6]-[#8]]]></SolventDefinition>
+      <SolventDefinition ID="chloroform" format="cxsmarts"><![CDATA[Cl[#6](Cl)Cl]]></SolventDefinition>
+      <SolventDefinition ID="cycloheptane" format="cxsmarts"><![CDATA[[#6]-1-[#6]-[#6]-[#6]-[#6]-[#6]-[#6]-1]]></SolventDefinition>
+      <SolventDefinition ID="cyclohexane" format="cxsmarts"><![CDATA[[#6]-1-[#6]-[#6]-[#6]-[#6]-[#6]-1]]></SolventDefinition>
+      <SolventDefinition ID="dichloromethane" format="cxsmarts"><![CDATA[Cl[#6]Cl]]></SolventDefinition>
+      <SolventDefinition ID="diethyl ether" format="cxsmarts"><![CDATA[[#6]-[#6]-[#8]-[#6]-[#6]]]></SolventDefinition>
+      <SolventDefinition ID="diisopropyl ether" format="cxsmarts"><![CDATA[[#6]-[#6](-[#6])-[#8]-[#6](-[#6])-[#6]]]></SolventDefinition>
+      <SolventDefinition ID="dimethyl sulfoxide" format="cxsmarts"><![CDATA[[#6]S([#6])=O]]></SolventDefinition>
+      <SolventDefinition ID="dimethylacetamide" format="cxsmarts"><![CDATA[[#6]-[#7](-[#6])-[#6](-[#6])=O]]></SolventDefinition>
+      <SolventDefinition ID="dioxane" format="cxsmarts"><![CDATA[[#6]-1-[#6]-[#8]-[#6]-[#6]-[#8]-1]]></SolventDefinition>
+      <SolventDefinition ID="ethyl acetate" format="cxsmarts"><![CDATA[[#6]-[#6]-[#8]-[#6](-[#6])=O]]></SolventDefinition>
+      <SolventDefinition ID="ethyl alcohol" format="cxsmarts"><![CDATA[[#6]-[#6]-[#8]]]></SolventDefinition>
+      <SolventDefinition ID="ethylene dichloride" format="cxsmarts"><![CDATA[Cl[#6]-[#6]Cl]]></SolventDefinition>
+      <SolventDefinition ID="formic acid" format="cxsmarts"><![CDATA[[#8]-[#6]=O]]></SolventDefinition>
+      <SolventDefinition ID="heptane" format="cxsmarts"><![CDATA[[#6]-[#6]-[#6]-[#6]-[#6]-[#6]-[#6]]]></SolventDefinition>
+      <SolventDefinition ID="hexane" format="cxsmarts"><![CDATA[[#6]-[#6]-[#6]-[#6]-[#6]-[#6]]]></SolventDefinition>
+      <SolventDefinition ID="isopropyl alcohol" format="cxsmarts"><![CDATA[[#6]-[#6](-[#6])-[#8]]]></SolventDefinition>
+      <SolventDefinition ID="methanol" format="cxsmarts"><![CDATA[[#6]-[#8]]]></SolventDefinition>
+      <SolventDefinition ID="methyl tertiary-butyl ether" format="cxsmarts"><![CDATA[[#6]-[#8]C([#6])([#6])[#6]]]></SolventDefinition>
+      <SolventDefinition ID="methyl(ethyl) ketone" format="cxsmarts"><![CDATA[[#6]-[#6]-[#6](-[#6])=O]]></SolventDefinition>
+      <SolventDefinition ID="methylpyrrolidone" format="cxsmarts"><![CDATA[[#6]-[#7]-1-[#6]-[#6]-[#6]-[#6]-1=O]]></SolventDefinition>
+      <SolventDefinition ID="N-methylacetamide" format="cxsmarts"><![CDATA[[#6]-[#7]-[#6](-[#6])=O]]></SolventDefinition>
+      <SolventDefinition ID="ortho-xylene" format="cxsmarts"><![CDATA[[#6]-c1ccccc1-[#6]]]></SolventDefinition>
+      <SolventDefinition ID="pentane" format="cxsmarts"><![CDATA[[#6]-[#6]-[#6]-[#6]-[#6]]]></SolventDefinition>
+      <SolventDefinition ID="propanol" format="cxsmarts"><![CDATA[[#6]-[#6]-[#6]-[#8]]]></SolventDefinition>
+      <SolventDefinition ID="pyridine" format="cxsmarts"><![CDATA[c1ccncc1]]></SolventDefinition>
+      <SolventDefinition ID="tetrahydrofuran" format="cxsmarts"><![CDATA[[#6]-1-[#6]-[#6]-[#8]-[#6]-1]]></SolventDefinition>
+      <SolventDefinition ID="toluene" format="cxsmarts"><![CDATA[[#6]-c1ccccc1]]></SolventDefinition>
+      <SolventDefinition ID="water" format="cxsmarts"><![CDATA[[#8]]]></SolventDefinition>
+    </RemoveSolvents>
   </Actions>
 </StandardizerConfiguration>
