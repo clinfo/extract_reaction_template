@@ -34,7 +34,7 @@ import static src.main.Core.getReactionTemplate;
 import static src.main.Utils.*;
 
 
-public class extractReactionTemplateFromReaxysData {
+public class ExtractReactionTemplateFromReaxysData {
     @Option(name = "-t", aliases = {"--process_type"}, metaVar = "process type", required = true,
             usage = "multiThread or singleThread")
     private static String PROCESS_TYPE = null;
@@ -59,7 +59,7 @@ public class extractReactionTemplateFromReaxysData {
     public static void main(String[] args) {
         String cacheSize = String.format("%d", 1024 * 1024);
         System.setProperty("chemaxon.automapper.AutoMapper.cacheSize", cacheSize);
-        extractReactionTemplateFromReaxysData p = new extractReactionTemplateFromReaxysData();
+        ExtractReactionTemplateFromReaxysData p = new ExtractReactionTemplateFromReaxysData();
         parseArgument(p, args);
         File[] dirs = new File[1];
         dirs[0] = new File(PROC_DIR_PATH);
