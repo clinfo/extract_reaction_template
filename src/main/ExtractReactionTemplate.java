@@ -20,10 +20,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static src.main.Core.getReactionTemplate;
-import static src.main.Utils.checkAtomCountOfProductsInReaction;
 import static src.main.Utils.mapReaction;
-import static src.main.Utils.stripSalts;
+import static src.main.Utils.standardizeReaction;
 import static src.main.Utils.sortReactantsInReaction;
+import static src.main.Utils.isInvalidReaction;
+import static src.main.Utils.isEmptyProductInReaction;
 
 public class ExtractReactionTemplate {
     @Option(name = "-i", aliases = {"--input"}, metaVar = "input", required = true, usage = "Path to input reaction file.")
@@ -87,11 +88,8 @@ public class ExtractReactionTemplate {
                     mol = mi.read();
                     mi.close();
                     RxnMolecule reaction = RxnMolecule.getReaction(mol);
-                    stripSalts(reaction, std);
-                    if (reaction.getProductCount() != 1 | reaction.getReactantCount() > 3) {
-                        continue;
-                    }
-                    if (checkAtomCountOfProductsInReaction(reaction, 40)) {
+                    standardizeReaction(reaction, std);
+                    if (isInvalidReaction(reaction)) {
                         continue;
                     }
                     AutoMapper.unmap(reaction);
@@ -101,7 +99,7 @@ public class ExtractReactionTemplate {
                     RxnMolecule reactionCloneFor1Neighbor = reaction.clone();
                     getReactionTemplate(reactionCloneForCore, "0");
                     getReactionTemplate(reactionCloneFor1Neighbor, "1");
-                    if (reactionCloneForCore.getProduct(0).isEmpty() | reactionCloneFor1Neighbor.getProduct(0).isEmpty()) {
+                    if (isEmptyProductInReaction(reactionCloneForCore) | isEmptyProductInReaction(reactionCloneFor1Neighbor)) {
                         continue;
                     }
                     AutoMapper.unmap(product);
@@ -115,7 +113,7 @@ public class ExtractReactionTemplate {
                     reactionCore = RxnMolecule.getReaction(MolImporter.importMol(rCore));
                     String r1Neighbor = MolExporter.exportToFormat(reactionCloneFor1Neighbor, FILE_FORMAT);
                     reaction1Neighbor = RxnMolecule.getReaction(MolImporter.importMol(r1Neighbor));
-                    if (reactionCore.getProductCount() != 1 | reaction1Neighbor.getProductCount() != 1) {
+                    if (isInvalidReaction(reactionCore) | isInvalidReaction(reaction1Neighbor)) {
                         continue;
                     }
                     writer.write(idList.get(i) + "," +

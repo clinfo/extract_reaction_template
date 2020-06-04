@@ -65,7 +65,7 @@ class Utils {
         return boolList.contains(true);
     }
 
-    static void stripSalts(RxnMolecule reaction, Standardizer std) {
+    static void standardizeReaction(RxnMolecule reaction, Standardizer std) {
         int j = reaction.getComponentCount(RxnMolecule.AGENTS);
         for (int i = 0; i < j; i++) {
             reaction.removeComponent(RxnMolecule.AGENTS, 0);
@@ -93,5 +93,13 @@ class Utils {
             sortedReaction.addComponent(tMap.get(nKey), RxnMolecule.REACTANTS);
         }
         return sortedReaction;
+    }
+
+    static Boolean isInvalidReaction(RxnMolecule reaction) {
+        return reaction.getProductCount() != 1 | reaction.getReactantCount() > 3 | reaction.getReactantCount() == 0;
+    }
+
+    static Boolean isEmptyProductInReaction(RxnMolecule reaction) {
+        return reaction.getProduct(0).isEmpty();
     }
 }
