@@ -55,6 +55,10 @@ public class ExtractReactionTemplateFromReaxysData {
             usage = "Absolute path to the directory for processing")
     private static String PROC_DIR_PATH = null;
 
+    @Option(name = "-n", aliases = {"--atom_num_limit"}, metaVar = "the limit of the atom count in a product",
+            usage = "Specify the number of atoms")
+    private static Integer MAX_ATOM_NUM = 50;
+
 
     public static void main(String[] args) {
         String cacheSize = String.format("%d", 1024 * 1024);
@@ -157,20 +161,25 @@ public class ExtractReactionTemplateFromReaxysData {
             RxnMolecule reaction;
             RxnMolecule reactionCore;
             RxnMolecule reaction1Neighbor;
-            Standardizer std = new Standardizer(new File("./strip_salts.xml"));
+            Standardizer std = new Standardizer(new File("clean_reaction.xml"));
             for (int i = 0; i < molStreams.size(); i++) {
                 mol = getMolFromInputStream(molStreams.get(i));
                 if (mol == null) {
                     continue;
                 }
                 reaction = RxnMolecule.getReaction(mol);
-                String sMol = MolExporter.exportToFormat(reaction, FORMAT);
-                reaction = RxnMolecule.getReaction(MolImporter.importMol(sMol));
-                stripSalts(reaction, std);
-                if (reaction.getProductCount() != 1 | reaction.getReactantCount() > 3) {
+                if (!checkAndFixValenceProperty(reaction)) {
                     continue;
                 }
-                if (checkAtomCountOfProductsInReaction(reaction, 40)) {
+                if (!isValidValence(reaction)) {
+                    continue;
+                }
+                if (checkAtomCountOfProductsInReaction(reaction, MAX_ATOM_NUM)) {
+                    continue;
+                }
+                standardizeReaction(reaction, std);
+                reaction = splitComponent(reaction, FORMAT);
+                if (isInvalidReaction(reaction)) {
                     continue;
                 }
                 Molecule product = reaction.getProduct(0);
@@ -179,7 +188,7 @@ public class ExtractReactionTemplateFromReaxysData {
                 RxnMolecule reactionCloneFor1Neighbor = reaction.clone();
                 getReactionTemplate(reactionCloneForCore, "0");
                 getReactionTemplate(reactionCloneFor1Neighbor, "1");
-                if (reactionCloneForCore.getProduct(0).isEmpty() | reactionCloneFor1Neighbor.getProduct(0).isEmpty()) {
+                if (isEmptyProductInReaction(reactionCloneForCore) | isEmptyProductInReaction(reactionCloneFor1Neighbor)) {
                     continue;
                 }
                 AutoMapper.unmap(product);
@@ -193,7 +202,10 @@ public class ExtractReactionTemplateFromReaxysData {
                 reactionCore = RxnMolecule.getReaction(MolImporter.importMol(rCore));
                 String r1Neighbor = MolExporter.exportToFormat(reactionCloneFor1Neighbor, FORMAT);
                 reaction1Neighbor = RxnMolecule.getReaction(MolImporter.importMol(r1Neighbor));
-                if (reactionCore.getProductCount() != 1 | reaction1Neighbor.getProductCount() != 1) {
+                if (isInvalidReaction(reactionCore) | isInvalidReaction(reaction1Neighbor)) {
+                    continue;
+                }
+                if (!checkAndFixValenceProperty(reactionCore) | !checkAndFixValenceProperty(reaction1Neighbor)) {
                     continue;
                 }
                 writer.write(idList.get(i) + "," +
