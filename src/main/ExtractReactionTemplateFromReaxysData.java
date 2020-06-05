@@ -168,6 +168,9 @@ public class ExtractReactionTemplateFromReaxysData {
                     continue;
                 }
                 reaction = RxnMolecule.getReaction(mol);
+                if (!checkAndFixValenceProperty(reaction)) {
+                    continue;
+                }
                 if (!isValidValence(reaction)) {
                     continue;
                 }
@@ -175,6 +178,7 @@ public class ExtractReactionTemplateFromReaxysData {
                     continue;
                 }
                 standardizeReaction(reaction, std);
+                reaction = splitComponent(reaction, FORMAT);
                 if (isInvalidReaction(reaction)) {
                     continue;
                 }

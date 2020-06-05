@@ -5,6 +5,7 @@ import chemaxon.checkers.ValencePropertyChecker;
 import chemaxon.checkers.result.StructureCheckerResult;
 import chemaxon.fixers.RemoveValencePropertyFixer;
 import chemaxon.fixers.StructureFixer;
+import chemaxon.formats.MolExporter;
 import chemaxon.formats.MolImporter;
 import chemaxon.standardizer.Standardizer;
 import chemaxon.struc.DPoint3;
@@ -127,5 +128,10 @@ class Utils {
             bool = fixer.fix(result);
         }
         return bool;
+    }
+
+    static RxnMolecule splitComponent(RxnMolecule reaction, String format) throws IOException {
+        String sMol = MolExporter.exportToFormat(reaction, format);
+        return RxnMolecule.getReaction(MolImporter.importMol(sMol));
     }
 }
