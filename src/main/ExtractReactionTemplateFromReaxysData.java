@@ -177,7 +177,9 @@ public class ExtractReactionTemplateFromReaxysData {
                 if (checkAtomCountOfProductsInReaction(reaction, MAX_ATOM_NUM)) {
                     continue;
                 }
-                standardizeReaction(reaction, std);
+                if (!standardizeReaction(reaction, std)) {
+                    continue;
+                }
                 reaction = splitComponent(reaction, FORMAT);
                 if (isInvalidReaction(reaction)) {
                     continue;
