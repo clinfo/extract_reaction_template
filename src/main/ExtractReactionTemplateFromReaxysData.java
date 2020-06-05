@@ -168,6 +168,9 @@ public class ExtractReactionTemplateFromReaxysData {
                     continue;
                 }
                 reaction = RxnMolecule.getReaction(mol);
+                if (!isValidValence(reaction)) {
+                    continue;
+                }
                 if (checkAtomCountOfProductsInReaction(reaction, MAX_ATOM_NUM)) {
                     continue;
                 }
@@ -196,6 +199,9 @@ public class ExtractReactionTemplateFromReaxysData {
                 String r1Neighbor = MolExporter.exportToFormat(reactionCloneFor1Neighbor, FORMAT);
                 reaction1Neighbor = RxnMolecule.getReaction(MolImporter.importMol(r1Neighbor));
                 if (isInvalidReaction(reactionCore) | isInvalidReaction(reaction1Neighbor)) {
+                    continue;
+                }
+                if (!checkAndFixValenceProperty(reactionCore) | !checkAndFixValenceProperty(reaction1Neighbor)) {
                     continue;
                 }
                 writer.write(idList.get(i) + "," +

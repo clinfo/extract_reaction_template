@@ -1,5 +1,10 @@
 package src.main;
 
+import chemaxon.checkers.ValenceErrorChecker;
+import chemaxon.checkers.ValencePropertyChecker;
+import chemaxon.checkers.result.StructureCheckerResult;
+import chemaxon.fixers.RemoveValencePropertyFixer;
+import chemaxon.fixers.StructureFixer;
 import chemaxon.formats.MolImporter;
 import chemaxon.standardizer.Standardizer;
 import chemaxon.struc.DPoint3;
@@ -101,5 +106,26 @@ class Utils {
 
     static Boolean isEmptyProductInReaction(RxnMolecule reaction) {
         return reaction.getProduct(0).isEmpty();
+    }
+
+    static Boolean isValidValence(RxnMolecule reaction) {
+        ValenceErrorChecker checker = new ValenceErrorChecker();
+        StructureCheckerResult result = checker.check(reaction);
+        return result == null;
+    }
+
+    static Boolean checkAndFixValenceProperty(RxnMolecule reaction) throws IOException{
+        ValencePropertyChecker vpc = new ValencePropertyChecker();
+        StructureCheckerResult result = null;
+        try {
+            result = vpc.check(reaction);
+        } catch (ArrayIndexOutOfBoundsException ignored) {  // ANY atom
+        }
+        boolean bool = true;
+        if (result != null) {
+            StructureFixer fixer = new RemoveValencePropertyFixer();
+            bool = fixer.fix(result);
+        }
+        return bool;
     }
 }
