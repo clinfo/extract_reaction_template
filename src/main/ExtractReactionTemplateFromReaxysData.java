@@ -161,7 +161,7 @@ public class ExtractReactionTemplateFromReaxysData {
             RxnMolecule reaction;
             RxnMolecule reactionCore;
             RxnMolecule reaction1Neighbor;
-            Standardizer std = new Standardizer(new File("./remove_fragment.xml"));
+            Standardizer std = new Standardizer(new File("clean_reaction.xml"));
             for (int i = 0; i < molStreams.size(); i++) {
                 mol = getMolFromInputStream(molStreams.get(i));
                 if (mol == null) {
