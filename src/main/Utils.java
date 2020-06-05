@@ -71,21 +71,27 @@ class Utils {
         return boolList.contains(true);
     }
 
-    static void standardizeReaction(RxnMolecule reaction, Standardizer std) {
+    static Boolean standardizeReaction(RxnMolecule reaction, Standardizer std) {
         int j = reaction.getComponentCount(RxnMolecule.AGENTS);
         for (int i = 0; i < j; i++) {
             reaction.removeComponent(RxnMolecule.AGENTS, 0);
         }
-        for (int i = 0; i < reaction.getReactantCount(); i++) {
-            Molecule reactant = reaction.getReactant(i);
-            std.standardize(reactant);
-        }
-        for (int i = 0; i < reaction.getProductCount(); i++) {
-            Molecule product = reaction.getProduct(i);
-            std.standardize(product);
+        try {
+            for (int i = 0; i < reaction.getReactantCount(); i++) {
+                Molecule reactant = reaction.getReactant(i);
+                std.standardize(reactant);
+            }
+            for (int i = 0; i < reaction.getProductCount(); i++) {
+                Molecule product = reaction.getProduct(i);
+                std.standardize(product);
+            }
+        } catch (NullPointerException e) {
+            return false;
         }
         reaction.removeEmptyComponents();
+        return true;
     }
+
     static RxnMolecule sortReactantsInReaction(RxnMolecule reaction){
         RxnMolecule sortedReaction = new RxnMolecule();
         DPoint3[] reactionArrow = reaction.getReactionArrow();

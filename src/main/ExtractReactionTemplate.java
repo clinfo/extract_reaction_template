@@ -88,7 +88,9 @@ public class ExtractReactionTemplate {
                     mol = mi.read();
                     mi.close();
                     RxnMolecule reaction = RxnMolecule.getReaction(mol);
-                    standardizeReaction(reaction, std);
+                    if (!standardizeReaction(reaction, std)) {
+                        continue;
+                    };
                     if (isInvalidReaction(reaction)) {
                         continue;
                     }
