@@ -55,6 +55,10 @@ public class ExtractReactionTemplateFromReaxysData {
             usage = "Absolute path to the directory for processing")
     private static String PROC_DIR_PATH = null;
 
+    @Option(name = "-n", aliases = {"--atom_num_limit"}, metaVar = "the limit of the atom count in a product",
+            usage = "Specify the number of atoms")
+    private static Integer MAX_ATOM_NUM = 50;
+
 
     public static void main(String[] args) {
         String cacheSize = String.format("%d", 1024 * 1024);
@@ -164,6 +168,9 @@ public class ExtractReactionTemplateFromReaxysData {
                     continue;
                 }
                 reaction = RxnMolecule.getReaction(mol);
+                if (checkAtomCountOfProductsInReaction(reaction, MAX_ATOM_NUM)) {
+                    continue;
+                }
                 standardizeReaction(reaction, std);
                 if (isInvalidReaction(reaction)) {
                     continue;
