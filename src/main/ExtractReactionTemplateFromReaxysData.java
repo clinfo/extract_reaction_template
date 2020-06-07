@@ -210,11 +210,11 @@ public class ExtractReactionTemplateFromReaxysData {
                 if (!checkAndFixValenceProperty(reactionCore) | !checkAndFixValenceProperty(reaction1Neighbor)) {
                     continue;
                 }
-                writer.write(idList.get(i) + "," +
-                        MolExporter.exportToFormat(product, FORMAT) + "," +
-                        MolExporter.exportToFormat(sortReactantsInReaction(reaction), FORMAT) + "," +
-                        MolExporter.exportToFormat(sortReactantsInReaction(reactionCore), FORMAT) + "," +
-                        MolExporter.exportToFormat(sortReactantsInReaction(reaction1Neighbor), FORMAT) + "," +
+                writer.write(idList.get(i) + "\t" +
+                        MolExporter.exportToFormat(product, FORMAT) + "\t" +
+                        MolExporter.exportToFormat(sortReactantsInReaction(reaction), FORMAT) + "\t" +
+                        MolExporter.exportToFormat(sortReactantsInReaction(reactionCore), FORMAT) + "\t" +
+                        MolExporter.exportToFormat(sortReactantsInReaction(reaction1Neighbor), FORMAT) + "\t" +
                         max_pub_year);
                 writer.newLine();
             }
