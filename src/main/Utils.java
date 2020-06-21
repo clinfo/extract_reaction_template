@@ -64,6 +64,9 @@ class Utils {
     }
 
     static Boolean checkAtomCountOfProductsInReaction(RxnMolecule reaction, int threshold) throws IOException {
+        if (threshold == 0) {
+            return false;
+        }
         List<Boolean> boolList = new ArrayList<>();
         for (int i = 0; i < reaction.getProductCount(); i++) {
             boolList.add(reaction.getProduct(i).getAtomCount() > threshold);
