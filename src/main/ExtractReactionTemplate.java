@@ -20,11 +20,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static src.main.Core.getReactionTemplate;
-import static src.main.Utils.mapReaction;
-import static src.main.Utils.standardizeReaction;
-import static src.main.Utils.sortReactantsInReaction;
-import static src.main.Utils.isInvalidReaction;
-import static src.main.Utils.isEmptyProductInReaction;
+import static src.main.Utils.*;
 
 public class ExtractReactionTemplate {
     @Option(name = "-i", aliases = {"--input"}, metaVar = "input", required = true, usage = "Path to input reaction file.")
@@ -36,6 +32,10 @@ public class ExtractReactionTemplate {
     @Option(name = "-f", aliases = {"--format"}, metaVar = "format", required = true,
             usage = "Output file format. (ex: smiles, smarts, sdf, etc.)")
     private static String FILE_FORMAT;
+
+    @Option(name = "-n", aliases = {"--atom_num_limit"}, metaVar = "the limit of the atom count in a product",
+            usage = "Specify the number of atoms")
+    private static Integer MAX_ATOM_NUM = 0;
 
     public static void main(String[] args) {
         ExtractReactionTemplate ert = new ExtractReactionTemplate();
@@ -80,7 +80,7 @@ public class ExtractReactionTemplate {
             Molecule mol;
             RxnMolecule reactionCore;
             RxnMolecule reaction1Neighbor;
-            writer.write("id,product,reaction,reaction_center,reaction_1neighbor");
+            writer.write("id\tproduct\treaction\treaction_center\treaction_1neighbor");
             writer.newLine();
             for (int i = 0; i < molStreams.size(); i++) {
                 try {
@@ -88,6 +88,15 @@ public class ExtractReactionTemplate {
                     mol = mi.read();
                     mi.close();
                     RxnMolecule reaction = RxnMolecule.getReaction(mol);
+                    if (!checkAndFixValenceProperty(reaction)) {
+                        continue;
+                    }
+                    if (!isValidValence(reaction)) {
+                        continue;
+                    }
+                    if (isOverMaxAtomCountOfProductsInReaction(reaction, MAX_ATOM_NUM)) {
+                        continue;
+                    }
                     if (!standardizeReaction(reaction, std)) {
                         continue;
                     };
@@ -118,10 +127,13 @@ public class ExtractReactionTemplate {
                     if (isInvalidReaction(reactionCore) | isInvalidReaction(reaction1Neighbor)) {
                         continue;
                     }
-                    writer.write(idList.get(i) + "," +
-                            MolExporter.exportToFormat(product, FILE_FORMAT) + "," +
-                            MolExporter.exportToFormat(sortReactantsInReaction(reaction), FILE_FORMAT) + "," +
-                            MolExporter.exportToFormat(sortReactantsInReaction(reactionCore), FILE_FORMAT) + "," +
+                    if (!checkAndFixValenceProperty(reactionCore) | !checkAndFixValenceProperty(reaction1Neighbor)) {
+                        continue;
+                    }
+                    writer.write(idList.get(i) + "\t" +
+                            MolExporter.exportToFormat(product, FILE_FORMAT) + "\t" +
+                            MolExporter.exportToFormat(sortReactantsInReaction(reaction), FILE_FORMAT) + "\t" +
+                            MolExporter.exportToFormat(sortReactantsInReaction(reactionCore), FILE_FORMAT) + "\t" +
                             MolExporter.exportToFormat(sortReactantsInReaction(reaction1Neighbor), FILE_FORMAT));
                     writer.newLine();
                 } catch (ArrayIndexOutOfBoundsException | IllegalArgumentException | MolFormatException e) {
