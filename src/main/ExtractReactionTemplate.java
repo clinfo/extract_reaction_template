@@ -80,7 +80,7 @@ public class ExtractReactionTemplate {
             Molecule mol;
             RxnMolecule reactionCore;
             RxnMolecule reaction1Neighbor;
-            writer.write("id,product,reaction,reaction_center,reaction_1neighbor");
+            writer.write("id\tproduct\treaction\treaction_center\treaction_1neighbor");
             writer.newLine();
             for (int i = 0; i < molStreams.size(); i++) {
                 try {
@@ -130,10 +130,10 @@ public class ExtractReactionTemplate {
                     if (!checkAndFixValenceProperty(reactionCore) | !checkAndFixValenceProperty(reaction1Neighbor)) {
                         continue;
                     }
-                    writer.write(idList.get(i) + "," +
-                            MolExporter.exportToFormat(product, FILE_FORMAT) + "," +
-                            MolExporter.exportToFormat(sortReactantsInReaction(reaction), FILE_FORMAT) + "," +
-                            MolExporter.exportToFormat(sortReactantsInReaction(reactionCore), FILE_FORMAT) + "," +
+                    writer.write(idList.get(i) + "\t" +
+                            MolExporter.exportToFormat(product, FILE_FORMAT) + "\t" +
+                            MolExporter.exportToFormat(sortReactantsInReaction(reaction), FILE_FORMAT) + "\t" +
+                            MolExporter.exportToFormat(sortReactantsInReaction(reactionCore), FILE_FORMAT) + "\t" +
                             MolExporter.exportToFormat(sortReactantsInReaction(reaction1Neighbor), FILE_FORMAT));
                     writer.newLine();
                 } catch (ArrayIndexOutOfBoundsException | IllegalArgumentException | MolFormatException e) {
