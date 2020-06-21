@@ -63,7 +63,7 @@ class Utils {
         return booleanList.contains(true);
     }
 
-    static Boolean checkAtomCountOfProductsInReaction(RxnMolecule reaction, int threshold) throws IOException {
+    static Boolean isOverMaxAtomCountOfProductsInReaction(RxnMolecule reaction, int threshold) throws IOException {
         if (threshold == 0) {
             return false;
         }

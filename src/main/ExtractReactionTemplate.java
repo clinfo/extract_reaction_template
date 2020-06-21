@@ -94,7 +94,7 @@ public class ExtractReactionTemplate {
                     if (!isValidValence(reaction)) {
                         continue;
                     }
-                    if (checkAtomCountOfProductsInReaction(reaction, MAX_ATOM_NUM)) {
+                    if (isOverMaxAtomCountOfProductsInReaction(reaction, MAX_ATOM_NUM)) {
                         continue;
                     }
                     if (!standardizeReaction(reaction, std)) {
