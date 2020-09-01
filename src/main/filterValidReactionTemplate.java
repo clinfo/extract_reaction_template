@@ -54,7 +54,8 @@ public class filterValidReactionTemplate {
                     header = line.split("\t");
                 } else {
                     data = line.split("\t");  // data: (product, reaction template, year)
-                    rxnTemplate = complementReactionTemplate(data[1]);
+                    // rxnTemplate = complementReactionTemplate(data[1]);
+                    rxnTemplate = RxnMolecule.getReaction(MolImporter.importMol(data[1]));
                     if (! isValidReaction(data[0], rxnTemplate)) {
                         continue;
                     }
