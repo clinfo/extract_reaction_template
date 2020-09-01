@@ -53,6 +53,7 @@ public class ExtractReactionTemplate {
             String[] splitWords;
             List<InputStream> molStreams = new ArrayList<>();
             List<Integer> patentNumberList = new ArrayList<>();
+            List<String> yearList = new ArrayList<>();
             ByteArrayInputStream is;
             int i = 0;
             while (((line = br.readLine()) != null)) {
@@ -66,21 +67,22 @@ public class ExtractReactionTemplate {
                 is = new ByteArrayInputStream(smiles.getBytes(StandardCharsets.UTF_8));
                 molStreams.add(is);
                 patentNumberList.add(i);
+                yearList.add(splitWords[1]);
             }
-            writeListToOutput(molStreams, patentNumberList, OUTPUT_FILE);
+            writeListToOutput(molStreams, patentNumberList, yearList, OUTPUT_FILE);
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
-    private static void writeListToOutput(List<InputStream> molStreams, List<Integer> idList, String save_path) throws IOException{
+    private static void writeListToOutput(List<InputStream> molStreams, List<Integer> idList, List<String> yearList, String save_path) throws IOException{
         try(BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(save_path), StandardCharsets.UTF_8))) {
-            Standardizer std = new Standardizer(new File("./strip_salts.xml"));
+            Standardizer std = new Standardizer(new File("./clean_reaction.xml"));
             MolImporter mi;
             Molecule mol;
             RxnMolecule reactionCore;
             RxnMolecule reaction1Neighbor;
-            writer.write("id\tproduct\treaction\treaction_center\treaction_1neighbor");
+            writer.write("id\tproduct\treaction\treaction_center\treaction_1neighbor\tyear");
             writer.newLine();
             for (int i = 0; i < molStreams.size(); i++) {
                 try {
@@ -134,7 +136,8 @@ public class ExtractReactionTemplate {
                             MolExporter.exportToFormat(product, FILE_FORMAT) + "\t" +
                             MolExporter.exportToFormat(sortReactantsInReaction(reaction), FILE_FORMAT) + "\t" +
                             MolExporter.exportToFormat(sortReactantsInReaction(reactionCore), FILE_FORMAT) + "\t" +
-                            MolExporter.exportToFormat(sortReactantsInReaction(reaction1Neighbor), FILE_FORMAT));
+                            MolExporter.exportToFormat(sortReactantsInReaction(reaction1Neighbor), FILE_FORMAT) + "\t" +
+                            yearList.get(i));
                     writer.newLine();
                 } catch (ArrayIndexOutOfBoundsException | IllegalArgumentException | MolFormatException e) {
                     e.printStackTrace();
